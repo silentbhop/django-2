@@ -1,0 +1,15 @@
+{% extends 'bookapp/layout.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block body %}
+<div class = 'form-container'>
+    <h1>Вход</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <span>{{ error }}</span>
+        <button type="submit" class="btn btn-success ">Войти</button>
+    </form>
+</div>
+{% endblock %}

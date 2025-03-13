@@ -1,0 +1,14 @@
+{% extends 'bookapp/layout.html' %}
+
+{% block title %}Удаление книги{% endblock %}
+
+{% block body %}
+<div class = 'form-container'>
+    <h1>Удаление книги</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success ">Удалить книгу</button>
+    </form>
+</div>
+
+{% endblock %}

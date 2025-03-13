@@ -1,0 +1,18 @@
+{% extends 'bookapp/layout.html' %}
+
+{% block title %}Обновление книги{% endblock %}
+
+{% block body %}
+<div class = 'form-container'>
+    <h1>Обновление книги</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.title }}<br>
+        {{ form.author }}<br>
+        {{ form.price }}<br>
+        <span>{{ error }}</span>
+        <button type="submit" class="btn btn-success ">Обновить</button>
+    </form>
+</div>
+
+{% endblock %}
