@@ -8,6 +8,7 @@ class BookForm(ModelForm):
         fields = ['title', 'author', 'price']
         widgets = {
             'title': TextInput(attrs={
+<<<<<<< HEAD
                 'class': '.form-container',
                 'placeholder': 'Название книги'
                 }),
@@ -17,6 +18,17 @@ class BookForm(ModelForm):
                 }),
             'price': NumberInput(attrs={
                 'class': '.form-container',
+=======
+                'class': 'form-container',
+                'placeholder': 'Название книги'
+                }),
+            'author': TextInput(attrs={
+                'class': 'form-container',
+                'placeholder': 'Автор'
+                }),
+            'price': NumberInput(attrs={
+                'class': 'form-container',
+>>>>>>> 518250b (lab 3 new styles)
                 'placeholder': 'Цена',
                 'step': '0.01'
                 }),
@@ -44,6 +56,7 @@ class CustomUserCreationForm(UserCreationForm):
         }
 
 class CustomAuthenticationForm(AuthenticationForm):
+<<<<<<< HEAD
     class Meta:
         model = CustomUser
         fields = ["username", "password"]
@@ -53,3 +66,11 @@ class CustomAuthenticationForm(AuthenticationForm):
                 'placeholder': 'Имя пользователя'
                 }),
         }
+=======
+    username = CharField(
+        widget=TextInput(attrs={'class': 'form-container', 'placeholder': 'Имя пользователя'})
+    )
+    password = CharField(
+        widget=PasswordInput(attrs={'class': 'form-container', 'placeholder': 'Пароль'})
+    )
+>>>>>>> 518250b (lab 3 new styles)

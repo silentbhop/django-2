@@ -1,5 +1,6 @@
 body {
     display: flex;
+<<<<<<< HEAD
     flex-direction: column; /* Выстраиваем элементы по вертикали */
     justify-content: flex-start; /* Располагаем все элементы сверху */
     align-items: center; /* Выравниваем все элементы по горизонтали */
@@ -7,6 +8,15 @@ body {
     margin: 0;
     padding: 20px;
     height: 100vh; /* Устанавливаем высоту страницы */
+=======
+    flex-direction: column; 
+    justify-content: flex-start; 
+    align-items: center; 
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+    height: 100vh; 
+>>>>>>> 518250b (lab 3 new styles)
 }
 
 .form-container {
@@ -14,7 +24,11 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
     width: 100%;
+=======
+    width: 90%;
+>>>>>>> 518250b (lab 3 new styles)
     max-width: 400px;
     display: flex;
     flex-direction: column;
@@ -22,7 +36,11 @@ body {
 }
 
 button {
+<<<<<<< HEAD
     margin-top: 20px; /* Отступ сверху у кнопки */
+=======
+    margin-top: 20px;
+>>>>>>> 518250b (lab 3 new styles)
     padding: 10px 20px;
     border: none;
     background-color: #007bff;
@@ -38,8 +56,13 @@ button:hover {
 
 form {
     display: flex;
+<<<<<<< HEAD
     flex-direction: column; /* Элементы формы идут по вертикали */
     align-items: center; /* Выравнивание всех элементов по центру */
+=======
+    flex-direction: column; 
+    align-items: center; 
+>>>>>>> 518250b (lab 3 new styles)
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -48,22 +71,40 @@ form {
 }
 
 ul {
+<<<<<<< HEAD
     list-style-type: none; /* Убираем маркеры списка */
     padding: 0;
     width: 100%;
     max-width: 800px; /* Ограничиваем ширину списка */
     margin: 0 auto; /* Центрируем список на странице */
+=======
+    list-style-type: none; 
+    padding: 0;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto; 
+>>>>>>> 518250b (lab 3 new styles)
 }
 
 li {
     background: #ffffff;
     padding: 20px;
+<<<<<<< HEAD
     margin-bottom: 15px; /* Отступ между книгами */
     border-radius: 10px; /* Скругляем углы */
+=======
+    margin-bottom: 15px; 
+    border-radius: 10px;
+>>>>>>> 518250b (lab 3 new styles)
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 li p {
+<<<<<<< HEAD
     margin: 5px 0; /* Отступы между параграфами */
     color: #555555; /* Цвет текста для автора и цены */
+=======
+    margin: 5px 0;
+    color: #555555;
+>>>>>>> 518250b (lab 3 new styles)
 }

@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Book, CustomUser
+<<<<<<< HEAD
 from .forms import BookForm, CustomUserCreationForm
+=======
+from .forms import BookForm, CustomUserCreationForm, CustomAuthenticationForm
+>>>>>>> 518250b (lab 3 new styles)
 from django.views.generic import ListView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout
@@ -63,6 +67,10 @@ def register(request):
     return render(request, 'bookapp/register.html', data)    
 
 class CustomLoginView(LoginView):
+<<<<<<< HEAD
+=======
+    authentication_form = CustomAuthenticationForm
+>>>>>>> 518250b (lab 3 new styles)
     template_name = 'bookapp/login.html'
 
 def custom_logout(request):

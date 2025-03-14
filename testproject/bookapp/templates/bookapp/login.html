@@ -3,11 +3,22 @@
 {% block title %}Вход{% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
+=======
+<nav class="d-flex gap-3 mb-3">
+    <a href="{% url 'home' %}" class="btn btn-primary">Главная страница</a>
+</nav>
+>>>>>>> 518250b (lab 3 new styles)
 <div class = 'form-container'>
     <h1>Вход</h1>
     <form method="post">
         {% csrf_token %}
+<<<<<<< HEAD
         {{ form.as_p }}
+=======
+        {{ form.username }}<br>
+        {{ form.password }}<br>
+>>>>>>> 518250b (lab 3 new styles)
         <span>{{ error }}</span>
         <button type="submit" class="btn btn-success ">Войти</button>
     </form>
