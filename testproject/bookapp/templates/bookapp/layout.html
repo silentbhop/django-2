@@ -8,26 +8,14 @@
     <link rel="stylesheet" href="{% static 'bookapp/css/styles.css'%}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<<<<<<< HEAD
-<body>
-    {% if user.is_authenticated %}
-        <p>Добро пожаловать, {{ user.username }}!</p>
-        <a href="{% url 'logout' %}">Выход</a>
-    {% else %}
-        <a href="{% url 'login' %}">Вход</a>
-        <a href="{% url 'register' %}">Регистрация</a>
-    {% endif %}
-
-    {% block body %}
-    {% endblock %}
-</body>
-</html>
-=======
 <body class="container mt-4">
 
     <nav class="d-flex gap-3 mb-3">
         {% if user.is_authenticated %}
             <span class="align-self-center">Добро пожаловать, <strong>{{ user.username }}</strong>!</span>
+            <a href="{% url 'cart' %}" class="btn btn-primary">Корзина</a>
+            <a href="{% url 'profile' %}" class="btn btn-primary">Профиль</a>
+            <a href="{% url 'orders' %}" class="btn btn-primary">Заказы</a>
             <a href="{% url 'logout' %}" class="btn btn-danger">Выход</a>
         {% else %}
             <a href="{% url 'login' %}" class="btn btn-success">Вход</a>
@@ -40,4 +28,3 @@
 
 </body>
 </html>
->>>>>>> 518250b (lab 3 new styles)

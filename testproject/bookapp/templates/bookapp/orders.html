@@ -1,0 +1,19 @@
+{% extends 'bookapp/layout.html' %}
+
+{% block title %}Мои заказы{% endblock %}
+
+{% block body %}
+<h1>Мои заказы</h1>
+<ul>
+    {% for order in orders %}
+        <li>Заказ от {{ order.created_at|date:"d E Y, H:i" }} на сумму {{ order.total_price }} руб.</li>
+        <ul>
+            <li>
+            {% for item in order.items.all %}
+                {{ item.book.title }} — {{ item.quantity }} шт. — {{ item.get_total_price }} руб.<br>
+            {% endfor %}
+            </li>
+        </ul>
+    {% endfor %}
+</ul>
+{% endblock %}

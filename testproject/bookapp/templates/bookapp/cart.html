@@ -1,0 +1,25 @@
+{% extends 'bookapp/layout.html' %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block body %}
+<nav class="d-flex gap-3 mb-3">
+    <a href="{% url 'home' %}" class="btn btn-primary">Главная страница</a>
+</nav>
+<h1>Корзина</h1>
+<ul>
+    {% for item in books_in_cart %}
+        <li>
+            {{ item.book.title }}<br>
+            {{ item.quantity }} шт.<br>
+            {{ item.total_price }} руб.<br>
+        </li>
+    {% endfor %}
+</ul>
+
+<p><strong>Общая стоимость:</strong> {{ total_cost }} руб.</p>
+<nav class="d-flex gap-3 mb-3">
+    <a href="{% url 'checkout' %}" class="btn btn-info">Сделать заказ</a>
+    <a href="{% url 'clear_cart' %}" class="btn btn-danger">Очистить корзину</a>
+</nav>
+{% endblock %}

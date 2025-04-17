@@ -1,0 +1,5 @@
+/.venv
+/testproject/testproject/
+/testproject/bookapp/__pycache__
+/testproject/db.sqlite3
+/testproject/bookapp/migrations

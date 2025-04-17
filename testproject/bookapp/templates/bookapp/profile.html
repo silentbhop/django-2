@@ -1,0 +1,18 @@
+{% extends 'bookapp/layout.html' %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block body %}
+<nav class="d-flex gap-3 mb-3">
+    <a href="{% url 'home' %}" class="btn btn-primary">Главная страница</a>
+</nav>
+<div class = 'form-container'>
+    <h1 style="text-align: center">Редактирование профиля</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.username }}<br>
+        {{ form.email }}<br>
+        <button type="submit" class="btn btn-success">Сохранить</button>
+    </form>
+</div>
+{% endblock %}

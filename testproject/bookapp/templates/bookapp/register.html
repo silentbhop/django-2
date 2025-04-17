@@ -3,12 +3,9 @@
 {% block title %}Регистрация{% endblock %}
 
 {% block body %}
-<<<<<<< HEAD
-=======
 <nav class="d-flex gap-3 mb-3">
     <a href="{% url 'home' %}" class="btn btn-primary">Главная страница</a>
 </nav>
->>>>>>> 518250b (lab 3 new styles)
 <div class = 'form-container'>
     <h1>Регистрация</h1>
     <form method="post">
@@ -17,9 +14,27 @@
         {{ form.email }}<br>
         {{ form.password1 }}<br>
         {{ form.password2 }}<br>
-        <span>{{ error }}</span>
+
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
         <button type="submit" class="btn btn-success ">Зарегистрироваться</button>
     </form>
+    {% if error %}
+        <p class="text-danger mt-2">{{ error }}</p>
+    {% endif %}
 </div>
 
 {% endblock %}

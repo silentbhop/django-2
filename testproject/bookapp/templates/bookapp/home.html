@@ -18,6 +18,9 @@
                 <a href="{% url 'update' p.id %}" class="btn btn-info">Изменить</a>
                 <a href="{% url 'delete' p.id %}" class="btn btn-danger">Удалить</a>
             {% endif %}
+            {% if user.is_authenticated %}
+                <a href="{% url 'add_to_cart' p.id %}" class="btn btn-primary">Положить в корзину</a>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>

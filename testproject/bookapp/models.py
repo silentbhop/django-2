@@ -46,3 +46,22 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("Суперпользователь должен иметь пароль")
         
         return self.create_user(username, email, password, **extra_fields)
+    
+class Order(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    total_price = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Заказ от {self.created_at.strftime('%d.%m.%Y %H:%M')}"
+
+class OrderItem(models.Model):
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name='items')
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def get_total_price(self):
+        return self.book.price * self.quantity
+
+    def __str__(self):
+        return f"{self.book.title} — {self.quantity} шт. — {self.get_total_price()} руб."
