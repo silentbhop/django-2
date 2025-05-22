@@ -57,31 +57,63 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
-    form.addEventListener('submit', function (e) {
-        clearErrors();
-        let hasError = false;
-
+    email.addEventListener('input', function()  {
         const emailValue = email.value.trim();
-        if (!emailRegex.test(emailValue)) {
-            setError('email', 'Некорректный формат email');
-            hasError = true;
-        }
-
-        if (password1.value.length < 6) {
-            setError('password1', 'Пароль должен содержать не менее 6 символов');
-            hasError = true;
-        }
-
-        if (password1.value !== password2.value) {
-            setError('password2', 'Пароли не совпадают');
-            hasError = true;
-        }
-
-        if (hasError) {
-            e.preventDefault();
+            if (!emailRegex.test(emailValue)) {
+                setError('email', 'Некорректный формат email');
+        } else {
+            setError('email', '');
         }
     });
+
+    password1.addEventListener('input', function() {
+            if (password1.value.length < 6) {
+                setError('password1', 'Пароль должен содержать не менее 6 символов');
+        } else {
+            setError('password1', '');
+        }
+    });
+
+    password2.addEventListener('input', function() {
+            if (password2.value !== password1.value) {
+                setError('password2', 'Пароли не совпадают');
+        } else {
+            setError('password2', '');
+        }
+    });
+    
+    form.addEventListener('submit', function (e) {
+    clearErrors();  // сбрасываем старые ошибки
+    let hasError = false;
+
+    const emailValue = email.value.trim();
+    if (!emailRegex.test(emailValue)) {
+        setError('email', 'Некорректный формат email');
+        hasError = true;
+    }
+
+    if (password1.value.length < 6) {
+        setError('password1', 'Пароль должен содержать не менее 6 символов');
+        hasError = true;
+    }
+
+    if (password1.value !== password2.value) {
+        setError('password2', 'Пароли не совпадают');
+        hasError = true;
+    }
+
+    if (username.value.length < 3) {
+        setError('username', 'Имя должно содержать не менее 3 символов');
+        hasError = true;
+    }
+
+    if (hasError) {
+        e.preventDefault();  // блокируем отправку формы
+    }
+    });
+
 });
+
 </script>
 
 {% endblock %}

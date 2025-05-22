@@ -3,7 +3,7 @@ from .models import Book, CustomUser, Order, OrderItem
 from .forms import BookForm, CustomUserCreationForm, CustomAuthenticationForm, ProfileUpdateForm
 from django.views.generic import ListView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
-from django.contrib.auth import logout, get_user_model
+from django.contrib.auth import  login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
@@ -55,7 +55,8 @@ def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user =  form.save()
+            login(request, user)
             return redirect('home')
     else:
         form = CustomUserCreationForm()
