@@ -3,8 +3,10 @@ from .models import Book, CustomUser, Order, OrderItem
 from .forms import BookForm, CustomUserCreationForm, CustomAuthenticationForm, ProfileUpdateForm
 from django.views.generic import ListView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
-from django.contrib.auth import logout
+from django.contrib.auth import logout, get_user_model
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+
 def home(request):
     return render(request, 'bookapp/home.html')
 
@@ -31,6 +33,13 @@ class BookListView(ListView):
     template_name = 'bookapp/home.html'
     context_object_name = 'books'
     paginate_by = 3
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        author = self.request.GET.get('author')
+        if author:
+            queryset = queryset.filter(author__icontains=author)
+        return queryset
 
 class BookUpdateView(UpdateView):
     model = Book
@@ -130,3 +139,8 @@ def checkout(request):
 def orders_view(request):
     orders = Order.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'bookapp/orders.html', {'orders': orders})
+
+def check_username(request):
+    username = request.GET.get('username')
+    exists = get_user_model().objects.filter(username=username).exists()
+    return JsonResponse({'exists': exists})

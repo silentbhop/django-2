@@ -7,6 +7,10 @@
     {% if user.is_authenticated %}
         <a href="{% url 'create' %}" class="btn btn-primary">Добавить книгу</a><br>
     {% endif %}
+    <form method="get" class="mb-3">
+        <input type="text" name="author" placeholder="Поиск по автору" value="{{ request.GET.author }}">
+        <button type="submit" class="btn btn-primary">Фильтровать</button>
+    </form>
     <ul>
         {% for p in books %}
         <li>
