@@ -1,6 +1,7 @@
 from .models import Book, CustomUser
 from django.forms import ModelForm, TextInput, NumberInput, PasswordInput, EmailInput, CharField
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from captcha.fields import CaptchaField
 
 class BookForm(ModelForm):
     class Meta:
@@ -23,15 +24,17 @@ class BookForm(ModelForm):
         }
 
 class CustomUserCreationForm(UserCreationForm):
+    captcha = CaptchaField()  
     password1 = CharField(
         widget= PasswordInput(attrs={'class': 'form-container', 'placeholder': 'Пароль'})
     )
     password2 =  CharField(
         widget= PasswordInput(attrs={'class': 'form-container', 'placeholder': 'Повторите пароль'})
-    )  
+    )
+
     class Meta:
         model = CustomUser
-        fields = ["username", "email", "password1", "password2"]
+        fields = ["username", "email", "password1", "password2", "captcha"]
         widgets = {
             'username': TextInput(attrs={
                 'class': 'form-container',

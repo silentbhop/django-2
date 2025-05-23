@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -15,4 +15,5 @@ urlpatterns = [
     path('cart/clear/', views.clear_cart, name='clear_cart'),
     path('checkout/', views.checkout, name='checkout'),
     path('orders/', views.orders_view, name='orders'),
+    path('captcha/', include('captcha.urls')),
 ]
