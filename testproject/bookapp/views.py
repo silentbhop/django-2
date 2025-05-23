@@ -3,8 +3,10 @@ from .models import Book, CustomUser, Order, OrderItem
 from .forms import BookForm, CustomUserCreationForm, CustomAuthenticationForm, ProfileUpdateForm
 from django.views.generic import ListView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
-from django.contrib.auth import logout
+from django.contrib.auth import  login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+
 def home(request):
     return render(request, 'bookapp/home.html')
 
@@ -32,6 +34,13 @@ class BookListView(ListView):
     context_object_name = 'books'
     paginate_by = 3
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        author = self.request.GET.get('author')
+        if author:
+            queryset = queryset.filter(author__icontains=author)
+        return queryset
+
 class BookUpdateView(UpdateView):
     model = Book
     template_name = 'bookapp/update.html'
@@ -46,7 +55,8 @@ def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user =  form.save()
+            login(request, user)
             return redirect('home')
     else:
         form = CustomUserCreationForm()
@@ -130,3 +140,8 @@ def checkout(request):
 def orders_view(request):
     orders = Order.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'bookapp/orders.html', {'orders': orders})
+
+def check_username(request):
+    username = request.GET.get('username')
+    exists = get_user_model().objects.filter(username=username).exists()
+    return JsonResponse({'exists': exists})

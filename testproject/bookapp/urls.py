@@ -16,4 +16,5 @@ urlpatterns = [
     path('checkout/', views.checkout, name='checkout'),
     path('orders/', views.orders_view, name='orders'),
     path('captcha/', include('captcha.urls')),
+    path('ajax/check-username/', views.check_username, name='check_username'),
 ]

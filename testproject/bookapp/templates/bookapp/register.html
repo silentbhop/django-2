@@ -10,32 +10,112 @@
     <h1>Регистрация</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.username }}<br>
-        {{ form.email }}<br>
-        {{ form.password1 }}<br>
-        {{ form.password2 }}<br>
+        {{ form.username }}<div class="error-msg" id="username-error"></div><br>
+        {{ form.email }}<div class="error-msg" id="email-error"></div><br>
+        {{ form.password1 }}<div class="error-msg" id="password1-error"></div><br>
+        {{ form.password2 }}<div class="error-msg" id="password2-error"></div><br>
         {{ form.captcha }}
-
-        {% if form.errors %}
-            <div class="alert alert-danger">
-                <ul>
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
 
         <button type="submit" class="btn btn-success ">Зарегистрироваться</button>
     </form>
-    {% if error %}
-        <p class="text-danger mt-2">{{ error }}</p>
-    {% endif %}
+
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const username = document.getElementById('id_username');
+    const email = document.getElementById('id_email');
+    const password1 = document.getElementById('id_password1');
+    const password2 = document.getElementById('id_password2');
+    const form = document.querySelector('form');
+
+    const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+;
+
+    function setError(fieldId, message) {
+        document.getElementById(fieldId + '-error').innerText = message;
+    }
+
+    function clearErrors() {
+        ['username', 'email', 'password1', 'password2'].forEach(id => setError(id, ''));
+    }
+
+    // AJAX проверка уникальности имени пользователя
+    username.addEventListener('blur', function () {
+        const value = username.value;
+        if (value.length < 3) {
+            setError('username', 'Имя должно содержать не менее 3 символов');
+            return;
+        }
+
+        fetch(`/ajax/check-username/?username=${encodeURIComponent(value)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.exists) {
+                    setError('username', 'Пользователь с таким именем уже существует');
+                } else {
+                    setError('username', '');
+                }
+            });
+    });
+
+    email.addEventListener('input', function()  {
+        const emailValue = email.value.trim();
+            if (!emailRegex.test(emailValue)) {
+                setError('email', 'Некорректный формат email');
+        } else {
+            setError('email', '');
+        }
+    });
+
+    password1.addEventListener('input', function() {
+            if (password1.value.length < 6) {
+                setError('password1', 'Пароль должен содержать не менее 6 символов');
+        } else {
+            setError('password1', '');
+        }
+    });
+
+    password2.addEventListener('input', function() {
+            if (password2.value !== password1.value) {
+                setError('password2', 'Пароли не совпадают');
+        } else {
+            setError('password2', '');
+        }
+    });
+    
+    form.addEventListener('submit', function (e) {
+    clearErrors();  // сбрасываем старые ошибки
+    let hasError = false;
+
+    const emailValue = email.value.trim();
+    if (!emailRegex.test(emailValue)) {
+        setError('email', 'Некорректный формат email');
+        hasError = true;
+    }
+
+    if (password1.value.length < 6) {
+        setError('password1', 'Пароль должен содержать не менее 6 символов');
+        hasError = true;
+    }
+
+    if (password1.value !== password2.value) {
+        setError('password2', 'Пароли не совпадают');
+        hasError = true;
+    }
+
+    if (username.value.length < 3) {
+        setError('username', 'Имя должно содержать не менее 3 символов');
+        hasError = true;
+    }
+
+    if (hasError) {
+        e.preventDefault();  // блокируем отправку формы
+    }
+    });
+
+});
+
+</script>
 
 {% endblock %}
